@@ -1,0 +1,79 @@
+{% extends 'xeon/base.html' %}
+
+{% block content %}
+<div style="padding: 15px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <h2 style="font-size: 26px; font-weight: 700; margin: 0; color: #1f2937;"><i class="fa-solid fa-building-columns text-slate-700"></i> Loans</h2>
+            <p style="color: #6b7280; margin: 8px 0 0 0; font-size: 14px;">Track your loans</p>
+        </div>
+        <a href="{% url 'xeon:add_loan' %}" style="padding: 10px 20px; background: #f59e0b; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;">+ Add Loan</a>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        {% if loans %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Person</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Type</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Total</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Paid</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Balance</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Status</th>
+                        <th style="padding: 12px 15px; text-align: center; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr style="border-bottom: 1px solid #e5e7eb; transition: all 0.2s;">
+                        <td style="padding: 12px 15px; font-weight: 500; color: #1f2937;">{{ loan.person_name }}</td>
+                        <td style="padding: 12px 15px;">
+                            {% if loan.loan_type == 'lent' %}
+                            <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 11px;">Lent</span>
+                            {% else %}
+                            <span style="background: #dbeafe; color: #0c4a6e; padding: 4px 10px; border-radius: 20px; font-size: 11px;">Borrowed</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 12px 15px; font-weight: 600; color: #1f2937;">₹ {{ loan.total_amount }}</td>
+                        <td style="padding: 12px 15px; color: #1f2937;">₹ {{ loan.paid_amount }}</td>
+                        <td style="padding: 12px 15px; font-weight: 600; color: #1f2937;">₹ {{ loan.balance }}</td>
+                        <td style="padding: 12px 15px;">
+                            <span style="background: {% if loan.status == 'completed' %}#dcfce7{% elif loan.status == 'partial' %}#fef3c7{% else %}#dbeafe{% endif %}; color: {% if loan.status == 'completed' %}#166534{% elif loan.status == 'partial' %}#78350f{% else %}#0c4a6e{% endif %}; padding: 4px 10px; border-radius: 20px; font-size: 11px;">
+                                {% if loan.status == 'completed' %}<i class="fa-solid fa-circle-check text-emerald-600"></i> Completed{% elif loan.status == 'partial' %}<i class="fa-solid fa-hourglass-half"></i> Partial{% else %}<i class="fa-solid fa-hourglass-half"></i> Pending{% endif %}
+                            </span>
+                        </td>
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <div style="display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                                {% if loan.balance > 0 %}
+                                <a href="{% url 'xeon:edit_loan' loan.id %}" style="padding: 6px 10px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 11px; cursor: pointer; text-decoration: none;">Edit</a>
+                                {% endif %}
+                                {% if loan.balance == 0 and loan.status != 'completed' %}
+                                <form action="{% url 'xeon:complete_loan' loan.id %}" method="POST" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" style="padding: 6px 10px; background: #22c55e; color: white; border: none; border-radius: 6px; font-size: 11px; cursor: pointer;"><i class="fa-solid fa-circle-check"></i> Complete</button>
+                                </form>
+                                {% endif %}
+                                <form action="{% url 'xeon:delete_loan' loan.id %}" method="POST" style="display: inline;" onsubmit="return confirm('Delete this loan?');">
+                                    {% csrf_token %}
+                                    <button type="submit" style="padding: 6px 10px; background: #ef4444; color: white; border: none; border-radius: 6px; font-size: 11px; cursor: pointer;">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="padding: 40px; text-align: center;">
+            <h6 style="color: #6b7280; margin: 0 0 15px 0; font-size: 16px;">No loans found</h6>
+            <a href="{% url 'xeon:add_loan' %}" style="padding: 10px 20px; background: #f59e0b; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;">Add First Loan</a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

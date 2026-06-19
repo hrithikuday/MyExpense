@@ -1,0 +1,346 @@
+{% extends 'xeon/base.html' %}
+{% block title %}Home - MyEarnings{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-[#070a13] text-white overflow-hidden pt-20 pb-24 px-6 lg:px-8 border-b border-white/5">
+    <!-- Glowing background accents -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10 space-y-8">
+        <!-- Floating badge -->
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-indigo-300 backdrop-blur-md">
+            ✨ Platform Release 2026
+        </span>
+
+        <!-- Hero Title -->
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-b from-white via-indigo-50 to-indigo-200 max-w-4xl mx-auto">
+            Smart financial tracking, <br class="hidden sm:inline">made effortlessly simple.
+        </h1>
+
+        <!-- Hero Subtitle -->
+        <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            MyEarnings is a next-generation personal finance assistant. Track your income streams, manage daily expenses, structure loans, and align tasks all in one unified cockpit.
+        </p>
+
+        <!-- Hero CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+            <a href="{% url 'xeon:register' %}" class="px-7 py-3 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-[0_4px_20px_rgba(79,70,229,0.35)]">
+                Get Started — Free ✨
+            </a>
+            <a href="{% url 'xeon:login_page' %}" class="px-7 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-xl text-sm transition-all duration-200 backdrop-blur-sm">
+                Login to Dashboard →
+            </a>
+        </div>
+
+        <!-- Pure-CSS App Mockup Dashboard -->
+
+        <div class="mt-16 relative mx-auto max-w-4xl rounded-2xl border border-white/10 bg-[#0d1222]/90 p-4 shadow-2xl overflow-hidden group backdrop-blur-md">
+            <!-- Window Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-white/5 mb-4">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                </div>
+                <div class="px-4 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] text-gray-500 font-mono tracking-wider">
+                    app.myearnings.com/dashboard
+                </div>
+                <div class="w-12"></div>
+            </div>
+            
+            <!-- Dashboard Layout Grid -->
+            <div class="grid grid-cols-12 gap-4 text-left">
+                <!-- Mock Sidebar -->
+                <div class="hidden md:block col-span-3 border-r border-white/5 pr-4 space-y-2">
+                    <div class="px-3 py-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-lg text-xs font-semibold flex items-center gap-2">
+                        <span>📊</span> Dashboard
+                    </div>
+                    <div class="px-3 py-2 text-gray-500 hover:bg-white/5 rounded-lg text-xs flex items-center gap-2 transition-colors">
+                        <span>💹</span> Income
+                    </div>
+                    <div class="px-3 py-2 text-gray-500 hover:bg-white/5 rounded-lg text-xs flex items-center gap-2 transition-colors">
+                        <span>💸</span> Expense
+                    </div>
+                    <div class="px-3 py-2 text-gray-500 hover:bg-white/5 rounded-lg text-xs flex items-center gap-2 transition-colors">
+                        <span>🏦</span> Loans
+                    </div>
+                    <div class="px-3 py-2 text-gray-500 hover:bg-white/5 rounded-lg text-xs flex items-center gap-2 transition-colors">
+                        <span>✓</span> Tasks
+                    </div>
+                </div>
+                
+                <!-- Main Dashboard Panel -->
+                <div class="col-span-12 md:col-span-9 space-y-4">
+                    <!-- Stat Widgets -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <!-- Widget 1 -->
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                            <span class="text-[10px] text-gray-500 uppercase font-semibold">Total Balance</span>
+                            <div class="text-xl font-extrabold text-white mt-1">₹1,24,500.00</div>
+                            <span class="inline-flex items-center text-[9px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded mt-1.5 font-bold">
+                                ↑ 12.4%
+                            </span>
+                        </div>
+                        <!-- Widget 2 -->
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                            <span class="text-[10px] text-gray-500 uppercase font-semibold">Monthly Income</span>
+                            <div class="text-xl font-extrabold text-emerald-400 mt-1">₹30,000.00</div>
+                            <span class="inline-flex items-center text-[9px] text-gray-400 mt-1.5">
+                                UPI Transfers: 85%
+                            </span>
+                        </div>
+                        <!-- Widget 3 -->
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                            <span class="text-[10px] text-gray-500 uppercase font-semibold">Expense Tracker</span>
+                            <div class="text-xl font-extrabold text-rose-400 mt-1">₹12,450.00</div>
+                            <div class="w-full bg-white/10 rounded-full h-1.5 mt-2">
+                                <div class="bg-rose-500 h-1.5 rounded-full" style="width: 41.5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transactions & Tasks list mockup -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Recent Transactions -->
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-3">
+                            <h4 class="text-xs font-bold text-white flex justify-between">
+                                <span>Recent Transactions</span>
+                                <span class="text-[10px] text-indigo-400 font-medium">View All</span>
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center text-xs p-2 rounded-xl bg-white/[0.01] border border-white/[0.02]">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span class="text-gray-300">Freelance Project</span>
+                                    </div>
+                                    <span class="font-bold text-emerald-400">+₹24,500</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs p-2 rounded-xl bg-white/[0.01] border border-white/[0.02]">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                        <span class="text-gray-300">Apartment Rent</span>
+                                    </div>
+                                    <span class="font-bold text-rose-400">-₹12,000</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs p-2 rounded-xl bg-white/[0.01] border border-white/[0.02]">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                        <span class="text-gray-300">Grocery Store</span>
+                                    </div>
+                                    <span class="font-bold text-rose-400">-₹1,450</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tasks focus -->
+                        <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-3">
+                            <h4 class="text-xs font-bold text-white flex justify-between">
+                                <span>Tasks Checklist</span>
+                                <span class="text-[10px] text-indigo-400">75% Done</span>
+                            </h4>
+                            <div class="space-y-2.5">
+                                <div class="flex items-center gap-2.5 text-xs">
+                                    <span class="w-4 h-4 rounded border border-emerald-500/30 flex items-center justify-center text-[8px] text-emerald-400 bg-emerald-500/10">✓</span>
+                                    <span class="text-gray-500 line-through">Pay broadband internet</span>
+                                </div>
+                                <div class="flex items-center gap-2.5 text-xs">
+                                    <span class="w-4 h-4 rounded border border-emerald-500/30 flex items-center justify-center text-[8px] text-emerald-400 bg-emerald-500/10">✓</span>
+                                    <span class="text-gray-500 line-through">Settle loan interest</span>
+                                </div>
+                                <div class="flex items-center gap-2.5 text-xs">
+                                    <span class="w-4 h-4 rounded border border-white/10 flex items-center justify-center text-[8px]"></span>
+                                    <span class="text-white">Review monthly subscriptions</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Transition Gradient -->
+<div class="h-24 bg-gradient-to-b from-[#070a13] to-white"></div>
+
+<!-- Features Section -->
+<div id="features" class="py-24 bg-white px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto space-y-20">
+        <div class="text-center space-y-4 max-w-2xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-950">
+                Engineered to optimize your money flow
+            </h2>
+            <p class="text-sm text-gray-500 leading-relaxed max-w-xl mx-auto">
+                Everything you need to capture financial progress, structured into four essential, easy-to-use pillars.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Feature 1: Income -->
+            <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 space-y-5 hover:shadow-[0_10px_30px_rgba(16,185,129,0.08)] hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100/75 flex items-center justify-center text-emerald-600 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <h3 class="font-extrabold text-gray-900 text-lg">Income Streams</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                    Log earnings with payment method tracking and custom categories to visualize where your revenues flow.
+                </p>
+            </div>
+
+            <!-- Feature 2: Expense -->
+            <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 space-y-5 hover:shadow-[0_10px_30px_rgba(239,68,68,0.08)] hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-rose-100/75 flex items-center justify-center text-rose-600 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"></path>
+                    </svg>
+                </div>
+                <h3 class="font-extrabold text-gray-900 text-lg">Expense Cockpit</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                    Track where every rupee goes. Monitor payments made via cash, card, or UPI to optimize monthly saving rates.
+                </p>
+            </div>
+
+            <!-- Feature 3: Loans -->
+            <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 space-y-5 hover:shadow-[0_10px_30px_rgba(245,158,11,0.08)] hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100/75 flex items-center justify-center text-amber-600 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                </div>
+                <h3 class="font-extrabold text-gray-900 text-lg">Debt & Lending</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                    Manage borrowed or lent funds, tracking outstanding balances, partial payments, and due dates dynamically.
+                </p>
+            </div>
+
+            <!-- Feature 4: Tasks -->
+            <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 space-y-5 hover:shadow-[0_10px_30px_rgba(79,70,229,0.08)] hover:-translate-y-1 transition-all duration-300">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-100/75 flex items-center justify-center text-indigo-600 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h3 class="font-extrabold text-gray-900 text-lg">Task Priorities</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">
+                    Never lose sight of tasks. Integrate todo items directly alongside your daily transactions for a productive lifestyle.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div id="stats" class="bg-gray-50 py-24 px-6 lg:px-8 border-t border-b border-gray-100">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
+        <div class="space-y-3">
+            <p class="text-5xl font-extrabold text-gray-950 tracking-tight">0%</p>
+            <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Spreadsheet Complexity</p>
+        </div>
+        <div class="space-y-3">
+            <p class="text-5xl font-extrabold text-gray-950 tracking-tight">4+</p>
+            <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Integrated Financial Tools</p>
+        </div>
+        <div class="space-y-3">
+            <p class="text-5xl font-extrabold text-gray-950 tracking-tight">100%</p>
+            <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Data Privacy & Isolation</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- About Section -->
+<div id="about" class="py-24 bg-white px-6 lg:px-8 border-t border-gray-100">
+    <div class="max-w-6xl mx-auto space-y-20">
+
+        <!-- Section Header -->
+        <div class="text-center space-y-4 max-w-2xl mx-auto">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-100">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                About MyEarnings
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-950">
+                Your finances. Your rules.
+            </h2>
+            <p class="text-sm text-gray-500 leading-relaxed">
+                MyEarnings was built out of frustration with overly complex financial tools. We believe everyone deserves a clear, private, and powerful way to understand their own money.
+            </p>
+        </div>
+
+        <!-- Story Block -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <!-- Left: Mission Text -->
+            <div class="space-y-5">
+                <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight leading-snug">
+                    Built to replace the chaos of spreadsheets.
+                </h3>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Most people track their money in scattered notes, spreadsheets, or not at all. MyEarnings brings everything into one clean interface — income, expenses, loans, and tasks — so you always know exactly where you stand.
+                </p>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    Whether you're a freelancer juggling multiple income sources, someone managing household budgets, or just trying to stay on top of loans and daily spending — MyEarnings adapts to you.
+                </p>
+                <!-- Accent Quote -->
+                <blockquote class="border-l-4 border-indigo-500 pl-4 py-1">
+                    <p class="text-sm italic text-gray-700 font-medium">"Financial clarity shouldn't require a finance degree — it should be one click away."</p>
+                    <cite class="text-xs text-gray-400 mt-1 block not-italic">— MyEarnings Team</cite>
+                </blockquote>
+            </div>
+            <!-- Right: Value Pillars -->
+            <div class="space-y-4">
+                <!-- Pillar 1 -->
+                <div class="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                    <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Privacy First</h4>
+                        <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">Your data is fully isolated per account. We never sell, share, or analyse your financial information.</p>
+                    </div>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                    <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Radically Simple</h4>
+                        <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">No bloat, no subscriptions, no learning curve. Open the app, log your entry, and you're done in seconds.</p>
+                    </div>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
+                    <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Always Fast</h4>
+                        <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">Optimised for speed on all devices. Your dashboard loads instantly — because your time matters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+<style>
+    html { scroll-behavior: smooth; }
+</style>
+{% endblock %}
+
+
+

@@ -1,0 +1,57 @@
+{% extends 'xeon/base.html' %}
+
+{% block content %}
+<div style="padding: 15px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <h2 style="font-size: 26px; font-weight: 700; margin: 0; color: #1f2937;"><i class="fa-solid fa-money-bill-trend-up text-emerald-600"></i> Income</h2>
+            <p style="color: #6b7280; margin: 8px 0 0 0; font-size: 14px;">Track your earnings</p>
+        </div>
+        <a href="{% url 'xeon:add_income' %}" style="padding: 10px 20px; background: #22c55e; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;">+ Add Income</a>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        {% if incomes %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Amount</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Category</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Method</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Date</th>
+                        <th style="padding: 12px 15px; text-align: center; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes %}
+                    <tr style="border-bottom: 1px solid #e5e7eb; transition: all 0.2s;">
+                        <td style="padding: 12px 15px; color: #22c55e; font-weight: 600;">₹ {{ income.amount }}</td>
+                        <td style="padding: 12px 15px; color: #1f2937;"><span style="background: #dbeafe; padding: 4px 10px; border-radius: 20px; font-size: 12px; color: #0c4a6e;">{{ income.category }}</span></td>
+                        <td style="padding: 12px 15px; color: #4b5563; font-size: 13px; font-weight: 500;">{{ income.get_payment_method_display }}</td>
+                        <td style="padding: 12px 15px; color: #6b7280; font-size: 13px;">{{ income.date|date:"d M Y" }}</td>
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                                <a href="{% url 'xeon:edit_income' income.id %}" style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; text-decoration: none;">Edit</a>
+                                <form action="{% url 'xeon:delete_income' income.id %}" method="POST" style="display: inline;" onsubmit="return confirm('Delete this income?');">
+                                    {% csrf_token %}
+                                    <button type="submit" style="padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer;">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="padding: 40px; text-align: center;">
+            <h6 style="color: #6b7280; margin: 0 0 15px 0; font-size: 16px;">No income records found</h6>
+            <a href="{% url 'xeon:add_income' %}" style="padding: 10px 20px; background: #22c55e; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;">Add First Income</a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

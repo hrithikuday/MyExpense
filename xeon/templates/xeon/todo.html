@@ -1,0 +1,71 @@
+{% extends 'xeon/base.html' %}
+
+{% block content %}
+<div style="padding: 15px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <h2 style="font-size: 26px; font-weight: 700; margin: 0; color: #1f2937;"><i class="fa-solid fa-list-check text-slate-700"></i> Todo List</h2>
+            <p style="color: #6b7280; margin: 8px 0 0 0; font-size: 14px;">Manage your tasks</p>
+        </div>
+        <a href="{% url 'xeon:add_todo' %}" style="padding: 10px 20px; background: #1a1a1a; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;">+ Add Task</a>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        {% if todos %}
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Title</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Priority</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Status</th>
+                        <th style="padding: 12px 15px; text-align: left; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Due Date</th>
+                        <th style="padding: 12px 15px; text-align: center; font-weight: 600; font-size: 12px; color: #6b7280; text-transform: uppercase;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                    <tr style="border-bottom: 1px solid #e5e7eb; transition: all 0.2s;">
+                        <td style="padding: 12px 15px; font-weight: 500; color: #1f2937;">{{ todo.title }}</td>
+                        <td style="padding: 12px 15px;">
+                            {% if todo.priority == 'high' %}
+                            <span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 20px; font-size: 11px;"><i class="fa-solid fa-circle text-red-500"></i> High</span>
+                            {% elif todo.priority == 'medium' %}
+                            <span style="background: #fef3c7; color: #78350f; padding: 4px 10px; border-radius: 20px; font-size: 11px;"><i class="fa-solid fa-circle text-yellow-400"></i> Medium</span>
+                            {% else %}
+                            <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 11px;"><i class="fa-solid fa-circle text-green-500"></i> Low</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 12px 15px;">
+                            {% if todo.is_completed %}
+                            <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 11px;"><i class="fa-solid fa-check-circle text-emerald-600"></i> Done</span>
+                            {% else %}
+                            <span style="background: #fef3c7; color: #78350f; padding: 4px 10px; border-radius: 20px; font-size: 11px;"><i class="fa-solid fa-hourglass-half"></i> Pending</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 12px 15px; color: #6b7280; font-size: 13px;">{{ todo.due_date|date:"d M Y" }}</td>
+                        <td style="padding: 12px 15px; text-align: center;">
+                            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                                <a href="{% url 'xeon:edit_todo' todo.id %}" style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; text-decoration: none;">Edit</a>
+                                <form action="{% url 'xeon:delete_todo' todo.id %}" method="POST" style="display: inline;" onsubmit="return confirm('Delete this task?');">
+                                    {% csrf_token %}
+                                    <button type="submit" style="padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer;">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="padding: 40px; text-align: center;">
+            <h6 style="color: #6b7280; margin: 0 0 15px 0; font-size: 16px;">No tasks found</h6>
+            <a href="{% url 'xeon:add_todo' %}" style="padding: 10px 20px; background: #1a1a1a; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; text-decoration: none;">Create Your First Task</a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
