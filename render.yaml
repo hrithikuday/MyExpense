@@ -1,16 +1,23 @@
+databases:
+  - name: myexpense-db
+    plan: free
+
 services:
   - type: web
-    name: finance-manager
+    name: myexpense
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
-    startCommand: gunicorn main.wsgi:application --bind 0.0.0.0:$PORT
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    preDeployCommand: python manage.py migrate
+    startCommand: gunicorn main.wsgi:application
     envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: myexpense-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
         value: ".onrender.com"
-      - key: DATABASE_URL
-        scope: build
-      - key: SECRET_KEY
-        scope: secret
