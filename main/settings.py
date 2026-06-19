@@ -28,6 +28,8 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-**qt#9(dlf@eico-5y4%s
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+if 'myexpense.hrithikuday.me' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('myexpense.hrithikuday.me')
 
 RENDER_EXTERNAL_URL = os.environ.get('RENDER_EXTERNAL_URL')
 if RENDER_EXTERNAL_URL:
@@ -159,6 +161,11 @@ if not DEBUG:
     else:
         CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv())
         SECURE_SSL_REDIRECT = False
+
+    # Ensure custom domain is trusted for CSRF
+    CSRF_TRUSTED_ORIGINS = [origin for origin in CSRF_TRUSTED_ORIGINS if origin]
+    if 'https://myexpense.hrithikuday.me' not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append('https://myexpense.hrithikuday.me')
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
