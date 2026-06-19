@@ -42,10 +42,16 @@ def login_page(request):
         return redirect('xeon:dashboard')
 
     if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if the user account actually exists
+        user_exists = User.objects.filter(username=username).exists()
+
         user = authenticate(
             request,
-            username=request.POST.get('username'),
-            password=request.POST.get('password')
+            username=username,
+            password=password
         )
 
         if user:
@@ -56,7 +62,10 @@ def login_page(request):
                 return redirect(next_url)
             return redirect('xeon:dashboard')
         else:
-            messages.error(request, "Invalid username or password")
+            if not user_exists:
+                messages.error(request, "This account does not exist. Please sign up first.")
+            else:
+                messages.error(request, "Incorrect password. Please try again.")
 
     return render(request, 'xeon/login.html')
 
@@ -351,7 +360,7 @@ def add_todo(request):
             title=request.POST.get('title'),
             description=request.POST.get('description'),
             priority=request.POST.get('priority'),
-            due_date=request.POST.get('due_date'),
+            due_date=request.POST.get('due_date') or None,
         )
         return redirect('xeon:todo_list')
 
@@ -366,7 +375,7 @@ def edit_todo(request, id):
         todo.title = request.POST.get('title')
         todo.description = request.POST.get('description')
         todo.priority = request.POST.get('priority')
-        todo.due_date = request.POST.get('due_date')
+        todo.due_date = request.POST.get('due_date') or None
         todo.save()
 
         return redirect('xeon:todo_list')
@@ -400,7 +409,7 @@ def add_loan(request):
             loan_type=request.POST.get('loan_type'),
             total_amount=request.POST.get('total_amount') or 0,
             paid_amount=request.POST.get('paid_amount') or 0,
-            due_date=request.POST.get('due_date'),
+            due_date=request.POST.get('due_date') or None,
             note=request.POST.get('note'),
         )
         return redirect('xeon:loan_list')
